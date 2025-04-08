@@ -1,0 +1,9 @@
+numpy
+langchain
+langchain-community
+langchain-core
+langchain-huggingface
+faiss-cpu
+gitpython
+sentence-transformers
+accelerate
