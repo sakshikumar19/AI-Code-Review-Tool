@@ -1,7 +1,3 @@
-python app.py learn https://github.com/cookiecutter/cookiecutter --groq-api-key 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
-
-python app.py review /path/to/file.py --groq-api-key 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
-
 # Repositories and Code to Test Your AI Code Review Tool
 
 To thoroughly test your AI Code Review Tool, you should try it with different types of repositories and code files. Here are some recommendations:
