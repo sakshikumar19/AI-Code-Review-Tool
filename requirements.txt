@@ -1,4 +1,5 @@
 numpy
+pandas
 langchain
 langchain-community
 langchain-core
@@ -7,3 +8,5 @@ faiss-cpu
 gitpython
 sentence-transformers
 accelerate
+streamlit
+nest_asyncio

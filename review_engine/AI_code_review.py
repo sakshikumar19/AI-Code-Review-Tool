@@ -1,12 +1,11 @@
 from typing import Dict, Any
 
-
-from ..config import CodeReviewConfig
-from repository_indexer import RepositoryIndexer
-from pattern_extractor import PatternExtractor  
-from rag_engine import RAGEngine
-from difference_analyzer import DiffAnalyzer
-from recommendation_generator import RecommendationGenerator
+from review_engine.config import CodeReviewConfig
+from review_engine.repository_indexer import RepositoryIndexer
+from review_engine.pattern_extractor import PatternExtractor  
+from review_engine.rag_engine import RAGEngine
+from review_engine.difference_analyzer import DiffAnalyzer
+from review_engine.recommendation_generator import RecommendationGenerator
 
 class AICodeReview:
     """Main class for AI Code Review."""

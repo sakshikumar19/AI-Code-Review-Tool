@@ -4,8 +4,8 @@ import re
 import ast
 import difflib
 
-from ..config import CodeReviewConfig
-from rag_engine import RAGEngine
+from review_engine.config import CodeReviewConfig
+from review_engine.rag_engine import RAGEngine
 
 class DiffAnalyzer:
     """Analyzes code diffs against learned patterns."""

@@ -10,7 +10,7 @@ try:
 except ImportError:
     LANGCHAIN_AVAILABLE = False
 
-from ..config import CodeReviewConfig
+from review_engine.config import CodeReviewConfig
 
 class RAGEngine:
     """Retrieval-Augmented Generation engine for code analysis."""

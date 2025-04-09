@@ -4,7 +4,7 @@ import logging
 import argparse
 
 from review_engine.AI_code_review import AICodeReview
-from config import CodeReviewConfig
+from review_engine.config import CodeReviewConfig
 
 def main():
     """Main function for command-line usage."""

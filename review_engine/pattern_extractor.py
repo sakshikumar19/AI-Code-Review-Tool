@@ -6,7 +6,7 @@ import numpy as np
 from collections import Counter, defaultdict
 from typing import Dict, Any
 
-from ..config import CodeReviewConfig
+from review_engine.config import CodeReviewConfig
 
 class PatternExtractor:
     """Extracts coding patterns and conventions from a codebase."""
