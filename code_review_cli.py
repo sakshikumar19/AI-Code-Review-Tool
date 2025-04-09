@@ -51,45 +51,18 @@ def print_score_bar(score, label, width=20):
     bar = "█" * filled + "░" * (width - filled)
     print(f"{label.ljust(15)}: [{Fore.CYAN}{bar}{Style.RESET_ALL}] {score:.2f}/1.0")
 
-def print_review(review, detailed=False):
-    """Print the review in a formatted way."""
-    print_header("AI CODE REVIEW RESULTS")
-    
-    # Print summary
-    if "summary" in review:
-        print_section("SUMMARY")
-        print(textwrap.fill(review["summary"], width=80))
-    
-    # Print scores
-    if "scores" in review:
-        print_section("SCORES")
-        for category, score in review["scores"].items():
-            print_score_bar(score, category.capitalize())
-    
-    # Print issues
-    if "issues" in review:
-        print_section("ISSUES")
-        for i, issue in enumerate(review["issues"], 1):
-            severity_badge = print_severity_badge(issue["severity"])
-            print(f"\n{i}. {Fore.WHITE}{Style.BRIGHT}{issue['title']}{Style.RESET_ALL} {severity_badge}")
-            print(textwrap.fill(issue["description"], width=80, initial_indent="   ", subsequent_indent="   "))
-            
-            if detailed and "code_snippet" in issue:
-                print(f"\n   {Fore.WHITE}Code:{Style.RESET_ALL}")
-                for line in issue["code_snippet"].split("\n"):
-                    print(f"   {Fore.BLACK}{Style.BRIGHT}{line}{Style.RESET_ALL}")
-            
-            if "suggestion" in issue:
-                print(f"\n   {Fore.GREEN}Suggestion:{Style.RESET_ALL}")
-                print(textwrap.fill(issue["suggestion"], width=80, initial_indent="   ", subsequent_indent="   "))
-    
-    # Print recommendations
+def print_review(review, detailed):
     if "recommendations" in review:
         print_section("RECOMMENDATIONS")
         for i, rec in enumerate(review["recommendations"], 1):
-            print(f"{i}. {textwrap.fill(rec, width=80, subsequent_indent='   ')}")
-    
-    print("\n")
+            if isinstance(rec, dict):
+                print(f"{i}. Type: {rec.get('type', 'N/A')} ({rec.get('subtype', 'N/A')})")
+                print(f"   Message   : {rec.get('message', '')}")
+                print(f"   Suggestion: {rec.get('suggestion', '')}")
+                print(f"   Severity  : {rec.get('severity', '')}\n")
+            else:
+                # Fallback if it's just a plain string
+                print(f"{i}. {textwrap.fill(str(rec), width=80, subsequent_indent='   ')}")
 
 def main():
     """Main function for command-line usage."""

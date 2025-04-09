@@ -142,14 +142,26 @@ class GitHubAPI:
         import base64
         return base64.b64decode(content_data["content"]).decode("utf-8")
     
-    def comment_on_pull_request(self, pr_number: int, comment: str) -> Dict[str, Any]:
+    def comment_on_pull_request(self, pr_number: int, comment: str) -> Optional[Dict[str, Any]]:
         """Add a comment to a pull request."""
         url = f"{self.base_url}/issues/{pr_number}/comments"
         data = {"body": comment}
-        response = requests.post(url, headers=self.headers, json=data)
-        response.raise_for_status()
-        return response.json()
-    
+        try:
+            response = requests.post(url, headers=self.headers, json=data)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 403:
+                print("\n==== COMMENT THAT WOULD HAVE BEEN POSTED ====")
+                print(f"Pull Request #{pr_number}")
+                print(comment)
+                print("==== END OF COMMENT ====\n")
+                print(f"Error: 403 Forbidden - Unable to post comment to PR #{pr_number}")
+                print("This is likely because you don't have permission to comment on this repository.")
+                return None
+            else:
+                raise
+            
     def comment_on_pull_request_file(self, pr_number: int, commit_id: str, path: str, 
                                      line_number: int, comment: str) -> Dict[str, Any]:
         """Add a comment to a specific line in a file in a pull request."""

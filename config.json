@@ -1,0 +1,13 @@
+{
+    "platform": "github",
+    "token": "github-personal-access-token",
+    "owner": "username",
+    "repo": "repo-name",
+    "groq_api_key": "groq_api_key",
+    "vector_db_path": "./vector_db",
+    "extensions": [".py", ".js", ".java", ".go"],
+    "comment_on_lines": true,
+    "comment_on_low_severity": true,
+    "learn_repo": true,
+    "log_level": "INFO"
+  }

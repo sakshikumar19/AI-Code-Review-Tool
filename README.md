@@ -1,69 +1,161 @@
-# Repositories and Code to Test Your AI Code Review Tool
+# AI Code Review Tool
 
-To thoroughly test your AI Code Review Tool, you should try it with different types of repositories and code files. Here are some recommendations:
+A modular AI-powered code review system that learns coding patterns from existing repositories and provides contextual, actionable feedback on new code. It supports both interactive and automated usage through a Streamlit app, CLI, and GitHub/GitLab bot integrations.
 
-## Repository Types to Test
+---
 
-1. **Python Projects**
+## 🚀 Features
 
-   - Web frameworks (Django, Flask)
-   - Data science libraries
-   - CLI applications
-   - Medium-sized open-source packages (1000-5000 lines)
+- Learns patterns from your existing repositories to tailor reviews.
+- Reviews code and highlights issues, style inconsistencies, and structural improvements.
+- Offers both summary and line-level suggestions.
+- Can be run as a web app, CLI, or integrated directly with GitHub/GitLab.
+- Supports `.py`, `.js`, `.java`, `.go` files (extensible).
 
-2. **JavaScript/TypeScript Projects**
+---
 
-   - React applications
-   - Node.js backends
-   - Full-stack applications
-   - NPM packages
+## 📁 Project Structure
 
-3. **Mixed Language Repositories**
-   - Full-stack applications with frontend and backend code
-   - Projects with multiple programming languages
+```
+.
+├── .env / .gitignore
+├── code_review_cli.py             # CLI interface
+├── config.json                    # Bot configuration
+├── github_bot.py                  # GitHub/GitLab integration
+├── streamlit_script.py           # Streamlit app
+├── requirements.txt / LICENSE
+├── review_engine/                # Core review engine
+│   ├── AI_code_review.py         # Main engine orchestrator
+│   ├── config.py
+│   ├── difference_analyzer.py
+│   ├── pattern_extractor.py
+│   ├── rag_engine.py
+│   ├── recommendation_generator.py
+│   ├── repository_indexer.py
+│   └── __init__.py
+├── custom_model/
+│   ├── source.txt
+│   ├── target.txt
+│   └── t5_fine_tune.py           # T5 fine-tuning script
+```
 
-## Specific Repositories to Consider
+---
 
-- **Small to Medium Open Source Projects**:
-  - `requests` (Python HTTP library)
-  - `express` (Node.js web framework)
-  - `pandas` (Python data analysis library)
-  - Your own projects where you know the codebase well
+## 🧠 How It Works
 
-## Code Files to Test Against
+1. **Learning Phase**  
+   The tool learns code patterns from a given GitHub repository, indexing best practices, structure, and style.
 
-1. **Well-formed code files** that follow the project's conventions
-2. **Code files with intentional style inconsistencies**:
-   - Mixed indentation (spaces vs tabs)
-   - Different naming conventions
-   - Inconsistent formatting
-3. **Code with architectural issues**:
-   - Unusual import patterns
-   - Circular dependencies
-   - Violations of project structure
-4. **Code with functional issues**:
-   - Missing error handling
-   - Inconsistent logging
-   - Incomplete tests
+2. **Review Phase**  
+   New code is compared against learned patterns. The engine uses a combination of custom heuristics and a Groq-hosted LLM to identify:
 
-## Testing Approach
+   - Logical inconsistencies
+   - Style and formatting issues
+   - Best practice violations
+   - Maintainability concerns
 
-1. **Baseline Test**: Run the tool on a file that already follows all conventions
-2. **Style Test**: Create a PR with style issues (spacing, naming, etc.)
-3. **Architecture Test**: Add code that imports unusual libraries or structures data differently
-4. **Integration Test**: Test on real PRs if you have access to a development workflow
+3. **Feedback Phase**  
+   Results include:
+   - Summary of major and minor issues
+   - Inline suggestions (optional)
+   - Praises for well-written sections
+   - Exportable JSON reports
 
-## Practical Example
+---
 
-You could:
+## 🖥️ 1. Using the Streamlit App
 
-1. Clone a well-maintained project like `requests`
-2. Run your tool to learn the repository patterns
-3. Create a copy of an existing file with intentional modifications:
-   - Change indentation from 4 spaces to 2
-   - Convert snake_case variables to camelCase
-   - Remove error handling
-   - Use print() instead of the project's logging system
-4. Run your review tool on this modified file
+Launch the tool locally:
 
-This approach will help you validate that your tool correctly identifies various types of issues across different programming languages and project structures.
+```bash
+python -m streamlit run streamlit_script.py
+```
+
+**Or use the hosted app here:** [Deployed App URL](url)
+
+### Streamlit UI Flow:
+
+- **Tab 1:** Clone and learn from a GitHub repository
+- **Tab 2:** Upload or paste code for review
+- Get categorized feedback and download review results as JSON
+
+---
+
+## 🧰 2. Using the CLI Tool
+
+### Learn from a GitHub repo:
+
+```bash
+python code_review_cli.py learn <github_repo_url> --groq-api-key YOUR_API_KEY
+```
+
+### Review a local code file:
+
+```bash
+python code_review_cli.py review <path_to_code_file> --groq-api-key YOUR_API_KEY
+```
+
+---
+
+## 🤖 3. Using the GitHub/GitLab Bot
+
+### Run the bot on a Pull/Merge Request:
+
+```bash
+python github_bot.py --config config.json --pr <pr_number>
+```
+
+### Sample `config.json`:
+
+```json
+{
+  "platform": "github",
+  "token": "your-github-token",
+  "owner": "repo-owner",
+  "repo": "repo-name",
+  "groq_api_key": "your-groq-api-key",
+  "vector_db_path": "./vector_db",
+  "extensions": [".py", ".js", ".java", ".go"],
+  "comment_on_lines": true,
+  "comment_on_low_severity": true,
+  "learn_repo": true,
+  "log_level": "INFO"
+}
+```
+
+📌 Ensure the bot has necessary comment/write permissions on the repository. If not, results are printed in the terminal instead.
+
+---
+
+## 🔬 T5-based Model (Optional)
+
+- A custom T5 model is fine-tuned on a code-to-comment dataset.
+- Though currently limited in scope, it offers potential for fully offline or private deployments.
+- Evaluation metrics (e.g., ROUGE) to be added.
+
+---
+
+## 🛠️ Installation
+
+```bash
+git clone https://github.com/yourusername/ai-code-review-tool.git
+cd ai-code-review-tool
+pip install -r requirements.txt
+```
+
+---
+
+## 📌 Requirements
+
+- Python ≥ 3.8
+- Access to Groq LLM API (for full functionality)
+- GitHub/GitLab token (for bot integration)
+
+---
+
+## 🧪 Testing
+
+To be added in future versions:
+
+- Unit tests for engine modules
+- Integration tests for CLI and GitHub/GitLab flows
