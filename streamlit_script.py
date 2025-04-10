@@ -92,7 +92,7 @@ def format_review_data(review_data):
             "description": message,
             "severity": severity,
             "suggestion": suggestion,
-            "line_number": "N/A"  # Default value if not provided
+            "line_number": ""  # Default value if not provided
         }
         
         # Try to extract line number from the message if it contains it
@@ -109,19 +109,19 @@ def format_review_data(review_data):
     if "style" not in issue_types:
         result["praise"].append({
             "description": "Code follows good style practices",
-            "line_number": 1
+            "line_number": 'N/A'
         })
     
     if "architecture" not in issue_types:
         result["praise"].append({
             "description": "Architecture follows project patterns",
-            "line_number": 1
+            "line_number": 'N/A'
         })
         
     if "functionality" not in issue_types:
         result["praise"].append({
             "description": "Functionality implementation looks good",
-            "line_number": 1
+            "line_number": 'N/A'
         })
     
     # If there's an explanation field in any recommendation, add it to the summary
