@@ -223,14 +223,14 @@ def main():
     .stTabs [data-baseweb="tab"] {
         height: 50px;
         white-space: pre-wrap;
-        background-color: transparent;  /* Changed from #0E1117 to transparent */
+        background-color: transparent;
         border-radius: 4px 4px 0 0;
         gap: 1px;
         padding-top: 10px;
         padding-bottom: 10px;
     }
     .stTabs [aria-selected="true"] {
-        background-color: rgba(38, 39, 48, 0.1);  /* Changed from #262730 to semi-transparent */
+        background-color: rgba(38, 39, 48, 0.1);
         border-bottom: 4px solid #FF4B4B;
     }
     </style>
