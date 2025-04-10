@@ -71,7 +71,7 @@ Launch the tool locally:
 python -m streamlit run streamlit_script.py
 ```
 
-**Or use the hosted app here:** [Deployed App URL](url)
+**Or use the hosted app here:** [Deployed App URL](https://code-review-tool.streamlit.app/)
 
 ### Streamlit UI Flow:
 
@@ -127,11 +127,22 @@ python github_bot.py --config config.json --pr <pr_number>
 
 ---
 
-## 🔬 T5-based Model (Optional)
+Here's a README-style writeup based on the details from the image, optimized for clarity and completeness:
 
-- A custom T5 model is fine-tuned on a code-to-comment dataset.
-- Though currently limited in scope, it offers potential for fully offline or private deployments.
-- Evaluation metrics (e.g., ROUGE) to be added.
+---
+
+## 🔬 On-Premise T5 Model – Proof of Concept
+
+This project explores the viability of deploying a fine-tuned T5 model on-premise to generate basic code comments, offering a privacy-preserving alternative to cloud-based LLMs.
+
+### 🛠 Training Details
+
+- **Dataset**: 15,102 code-comment pairs, primarily focused on Python. The data was scraped from StackOverflow and includes code snippets with obvious blunders.
+- **Use Case**: The model is designed to generate single-line explanatory comments for short, error-prone code segments.
+- **Training Procedure**:
+  - Evaluates model performance every 500 steps using **ROUGE**, **BLEU**, and **exact match** metrics.
+  - Training was conducted for **one epoch** (~1.5 hours) due to time constraints.
+- **Model Potential**: With extended training, this T5-based model could serve as a lightweight, on-premise alternative to currently deployed models like **Groq LLaMA**.
 
 ---
 
