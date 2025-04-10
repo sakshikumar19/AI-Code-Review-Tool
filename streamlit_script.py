@@ -146,7 +146,7 @@ def create_review_card(issue, index, review_type):
             with col1:
                 st.markdown(f"<h3 style='color:{color};'>#{index+1}</h3>", unsafe_allow_html=True)
             with col2:
-                st.markdown(f"**{issue.get('type', 'Issue').title()**})")
+                st.markdown(f"**{issue.get('type', 'Issue').title()}**")
                 st.markdown(f"*{issue.get('description', '')}*")
                 st.markdown(f"**Suggestion:** {issue.get('suggestion', 'No suggestion provided')}")
             st.divider()
